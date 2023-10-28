@@ -91,32 +91,6 @@ Prelacion** leerPrelacionesDesdeCSV(const char* nombreArchivo, int* numPrelacion
     return prelaciones;
 }
 
-// Función para combinar y mostrar las materias con sus prelaciones
-void mostrarMateriasConPrelaciones(Materia** materias, int numMaterias, Prelacion** prelaciones, int numPrelaciones) {
-    printf("Codigo | Nombre | Cod Prelacion | Nombre Prelacion\n");
-    for (int i = 0; i < numPrelaciones; i++) {
-        char* codigoMateria = prelaciones[i]->codigoMateria;
-        char* codigoPrelacion = prelaciones[i]->codigoPrelacion;
-
-        char* nombreMateria = NULL;
-        char* nombrePrelacion = NULL;
-
-        // Buscar el nombre de la materia y la prelación en el arreglo de materias
-        for (int j = 0; j < numMaterias; j++) {
-            if (strcmp(materias[j]->codigo, codigoMateria) == 0) {
-                nombreMateria = materias[j]->nombre;
-            }
-            if (strcmp(materias[j]->codigo, codigoPrelacion) == 0) {
-                nombrePrelacion = materias[j]->nombre;
-            }
-        }
-
-        printf("%s | %s | %s | %s\n", codigoMateria, nombreMateria, codigoPrelacion, nombrePrelacion);
-    }
-}
-
-
-
 void mostrarPensum(Materia** materias, int numMaterias, Prelacion** prelaciones, int numPrelaciones) {
     printf("Codigo | Nombre | Cod Prelacion | Nombre Prelacion\n");
     for (int i = 0; i < numMaterias; i++) {
@@ -145,29 +119,6 @@ void mostrarPensum(Materia** materias, int numMaterias, Prelacion** prelaciones,
         hasPrelation = 0;
     }
 }
-
-// Función para obtener la lista de códigos de prelación para una materia específica
-char** obtenerPrelacionesParaMateria(Materia** materias, int numMaterias, Prelacion** prelaciones, int numPrelaciones, const char* codigoMateria, int* numPrelacionesEncontradas) {
-    char** listaPrelaciones = (char**)malloc(numMaterias * sizeof(char*));
-    *numPrelacionesEncontradas = 0;
-
-    for (int i = 0; i < numPrelaciones; i++) {
-        if (strcmp(prelaciones[i]->codigoMateria, codigoMateria) == 0) {
-            // Buscar el nombre de la prelación en el arreglo de materias
-            for (int j = 0; j < numMaterias; j++) {
-                if (strcmp(materias[j]->codigo, prelaciones[i]->codigoPrelacion) == 0) {
-                    listaPrelaciones[*numPrelacionesEncontradas] = strdup(materias[j]->codigo); // Copiar el código
-                    (*numPrelacionesEncontradas)++;
-                }
-            }
-        }
-    }
-
-    return listaPrelaciones;
-}
-
-
-
 
 // Función para imprimir las prelaciones para una materia específica
 void imprimirPrelacionesParaMateria(Materia** materias, int numMaterias, Prelacion** prelaciones, int numPrelaciones, const char* codigoMateria) {
